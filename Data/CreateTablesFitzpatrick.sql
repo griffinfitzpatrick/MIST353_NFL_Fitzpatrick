@@ -12,6 +12,14 @@ use MIST353_NFL_Fitzpatrick
 --Create tables for first iteration
 
 
+if(OBJECT_ID('Team') IS NOT NULL)
+    DROP TABLE Team;
+
+if(OBJECT_ID('ConferenceDivision') IS NOT NULL)
+    DROP TABLE ConferenceDivision;
+
+GO
+
 CREATE Table ConferenceDivision
 (
     ConferenceDivisionID INT IDENTITY(1,1)
@@ -20,6 +28,8 @@ CREATE Table ConferenceDivision
         CONSTRAINT CK_ConferenceNames CHECK (Conference IN ('AFC', 'NFC')),
     Division NVARCHAR(50) NOT NULL
         CONSTRAINT CK_DivisionNames CHECK (Division IN ('North', 'South', 'East', 'West')),
+    CONSTRAINT UQ_ConferenceDivision UNIQUE (Conference, Division)
+
 );
 
 
@@ -52,10 +62,15 @@ VALUES
 ('Cleveland Browns', 'Cleveland, OH', 'Brown/Orange', 1001),
 ('Pittsburgh Steelers', 'Pittsburgh, PA', 'Black/Gold', 1001);
 
+alter table CConferenceDivision
+add constraint UQ_ConferenceDivision UNIQUE (Conference, Division);
 
---Insert data
---INSERT ALL CONFDIV DATA (8rows)
---Insert TEam DATA for FC NORTH 4 rows
+/*ALTER TABLE ConferenceDivision
+NOCHECK CONSTRAINT CK_ConferenceNames;
+
+ALteR TABLE ConferenceDivision
+CHECK CONSTRAINT CK_DivisionNames;*/
+
 
 
 
