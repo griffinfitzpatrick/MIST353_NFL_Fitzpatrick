@@ -41,26 +41,9 @@ create TABLE Team
     TeamCityState VARCHAR(50) NOT NULL,
     TeamColors VARCHAR(50) Not Null,
     ConferenceDivisionID INT NOT NULL
-        constraint FK_Team_ConferenceDivision FOREIGN KEY REFERENCES Conference,
+        constraint FK_Team_ConferenceDivision FOREIGN KEY REFERENCES ConferenceDivision(ConferenceDivisionID),
 );
 
-INSERT INTO ConferenceDivision (Conference, Division)
-VALUES
-('AFC', 'North'),   -- 1001
-('AFC', 'South'),   -- 1002
-('AFC', 'East'),    -- 1003
-('AFC', 'West'),    -- 1004
-('NFC', 'North'),   -- 1005
-('NFC', 'South'),   -- 1006
-('NFC', 'East'),    -- 1007
-('NFC', 'West');    -- 1008
-
-INSERT INTO Team (TeamName, TeamCityState, TeamColors, ConferenceDivisionID)
-VALUES
-('Baltimore Ravens', 'Baltimore, MD', 'Purple/Black', 1001),
-('Cincinnati Bengals', 'Cincinnati, OH', 'Orange/Black', 1001),
-('Cleveland Browns', 'Cleveland, OH', 'Brown/Orange', 1001),
-('Pittsburgh Steelers', 'Pittsburgh, PA', 'Black/Gold', 1001);
 
 alter table CConferenceDivision
 add constraint UQ_ConferenceDivision UNIQUE (Conference, Division);
