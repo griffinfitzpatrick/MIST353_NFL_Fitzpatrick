@@ -78,8 +78,8 @@ GO
 
 SELECT 
     cd.ConferenceDivisionID,
-    cd.ConferenceName,
-    cd.DivisionName,
+    cd.Conference,
+    cd.Division,
     t.TeamName,
     t.TeamCityState,
     t.TeamColors
@@ -99,15 +99,15 @@ ORDER BY TeamName;
 
 SELECT 
     ConferenceDivisionID,
-    ConferenceName,
-    DivisionName
+    Conference,
+    Division
 FROM ConferenceDivision
 ORDER BY ConferenceDivisionID;
 
 
 SELECT 
-    cd.ConferenceName,
-    cd.DivisionName,
+    cd.Conference,
+    cd.Division,
     t.TeamName,
     t.TeamCityState,
     t.TeamColors
