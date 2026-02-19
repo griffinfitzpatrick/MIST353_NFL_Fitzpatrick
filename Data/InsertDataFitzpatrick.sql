@@ -73,3 +73,45 @@ GO
 
 SELECT * FROM ConferenceDivision;
 GO
+
+-- three quires one for confdiv, one for team, one for join
+
+SELECT 
+    cd.ConferenceDivisionID,
+    cd.ConferenceName,
+    cd.DivisionName,
+    t.TeamName,
+    t.TeamCityState,
+    t.TeamColors
+FROM ConferenceDivision cd
+INNER JOIN Team t
+    ON cd.ConferenceDivisionID = t.ConferenceDivisionID
+ORDER BY cd.ConferenceDivisionID, t.TeamName;
+
+SELECT 
+    TeamID,
+    TeamName,
+    TeamCityState,
+    TeamColors,
+    ConferenceDivisionID
+FROM Team
+ORDER BY TeamName;
+
+SELECT 
+    ConferenceDivisionID,
+    ConferenceName,
+    DivisionName
+FROM ConferenceDivision
+ORDER BY ConferenceDivisionID;
+
+
+SELECT 
+    cd.ConferenceName,
+    cd.DivisionName,
+    t.TeamName,
+    t.TeamCityState,
+    t.TeamColors
+FROM Team t
+INNER JOIN ConferenceDivision cd
+    ON t.ConferenceDivisionID = cd.ConferenceDivisionID
+ORDER BY cd.ConferenceDivisionID, t.TeamName;
