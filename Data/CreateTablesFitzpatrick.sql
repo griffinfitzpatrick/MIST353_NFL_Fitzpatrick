@@ -1,4 +1,14 @@
+
+--use master;
+--GO
+
+
 -- Use the correct database
+
+
+
+
+
 USE MIST353_NFL_Fitzpatrick;
 GO
 
