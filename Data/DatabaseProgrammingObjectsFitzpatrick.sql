@@ -52,3 +52,20 @@ FROM Team t
 INNER JOIN ConferenceDivision cd
     ON t.ConferenceDivisionID = cd.ConferenceDivisionID
 Where Conference = 'AFC' AND Division = 'North';
+
+
+USE MIST353_NFL_Fitzpatrick;
+GO
+
+SELECT 
+    t.TeamName,
+    t.TeamCityState,
+    t.TeamColors,
+    cd.Conference,
+    cd.Division
+FROM Team t
+INNER JOIN ConferenceDivision cd
+    ON t.ConferenceDivisionID = cd.ConferenceDivisionID
+WHERE cd.Conference = 'AFC'
+  AND cd.Division = 'South'
+ORDER BY t.TeamName;
