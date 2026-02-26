@@ -57,15 +57,13 @@ Where Conference = 'AFC' AND Division = 'North';
 USE MIST353_NFL_Fitzpatrick;
 GO
 
-SELECT 
-    t.TeamName,
-    t.TeamCityState,
-    t.TeamColors,
-    cd.Conference,
-    cd.Division
-FROM Team t
-INNER JOIN ConferenceDivision cd
-    ON t.ConferenceDivisionID = cd.ConferenceDivisionID
-WHERE cd.Conference = 'AFC'
-  AND cd.Division = 'South'
-ORDER BY t.TeamName;
+select * from team
+declare @myteamname varchar(50) = 'Tennessee Titans';
+
+select TeamName, TeamColors, Conference, Division
+from Team Myteam inner join Team OtherTeams
+    on Myteam.ConferenceDivisionID = OtherTeams.ConferenceDivisionID
+--inner join ConferenceDivision cd
+    --on t.ConferenceDivisionID = cd.ConferenceDivisionID
+where TeamName != @myteamname;
+
