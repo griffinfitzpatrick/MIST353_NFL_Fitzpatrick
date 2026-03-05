@@ -67,3 +67,5 @@ from Team Myteam inner join Team OtherTeams
     --on t.ConferenceDivisionID = cd.ConferenceDivisionID
 where TeamName != @myteamname;
 
+
+

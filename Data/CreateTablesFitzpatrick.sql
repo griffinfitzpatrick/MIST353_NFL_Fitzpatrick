@@ -43,6 +43,24 @@ CREATE TABLE Team
 );
 GO
 
+use master;
+
+CREATE LOGIN APLogin
+WITH PASSWORD ='MI$T353Instructor';
+
+use MIST353_NFL_Fitzpatrick;
+
+CREATE USER APLogin
+FOR LOGIN APLogin;
+
+CREATE USER NandaSurendraDemo
+FOR LOGIN NandaSurendraDemo
+
+GRANT EXECUTE TO NandaSurendraDemo;
+
+GRANT SELECT TO NandaSurendraDemo;
+
+
 
 
 
