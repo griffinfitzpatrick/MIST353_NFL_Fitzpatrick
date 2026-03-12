@@ -1,0 +1,13 @@
+from get_db_connection import get_db_connection
+
+def get_teams_by_conference_division(
+    conference: str=none ,
+      division: str=none
+):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("{call procGetTeamsByConferenceDivision(?, ?)}", (conference, division))
+    rows = cursor.fetchall()
+    ##teams = cursor.fetchall()
+    conn.close()
+    return rows
