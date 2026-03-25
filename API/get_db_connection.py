@@ -1,19 +1,24 @@
-
 import os
 import pyodbc
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(dotenv_path=r"D:\GITHUB\MIST353_NFL_Fitzpatrick\API\.env")
 
 def get_db_connection():
-    server = os.getenv('DB_SERVER')
-    database = os.getenv('DB_NAME')
-    username = os.getenv('DB_LOGIN')
-    password = os.getenv('DB_PASSWORD')
-    
-    connection_string = f'DRIVER={{ODBC Driver 18 for SQL Server}};' \
-                        f'SERVER={server};DATABASE={database};UID={username};PWD={password};' \
-                        'Encrypt=no;TrustServerCertificate=yes;Connection Timeout=30;'
-    
-    return pyodbc.connect(connection_string)
+    server = os.getenv("DB_SERVER")
+    database = os.getenv("DB_NAME")
+    username = os.getenv("DB_LOGIN")
+    password = os.getenv("DB_PASSWORD")
 
+    connection_string = (
+    "DRIVER={ODBC Driver 18 for SQL Server};"
+    f"SERVER={server};"
+    f"DATABASE={database};"
+    f"UID={username};"
+    f"PWD={password};"
+    "Encrypt=no;"
+    "TrustServerCertificate=yes;"
+)
+
+
+    return pyodbc.connect(connection_string)
