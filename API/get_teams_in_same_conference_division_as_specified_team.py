@@ -1,12 +1,12 @@
 from get_db_connection import get_db_connection
 
-def get_teams_by_conference_division(
-    conference: str=none ,
-      division: str=none
-    ):
+def get_teams_in_same_conference_division_as_specified_team(
+        team_id: str
+
+):
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("{call procGetTeamsByConferenceDivision(?, ?)}", (conference, division))
+    cursor.execute("{call procGetTeamsInSameConferenceDivisionAsSpecifiedTeam(?)}", (team_id,))
     rows = cursor.fetchall()
     ##teams = cursor.fetchall()
     conn.close()
@@ -16,11 +16,11 @@ def get_teams_by_conference_division(
         {
             "TeamID": row.TeamName,
             "Conference": row.Conference,
-            "Division": row.Division,
-            "TeamColors": row.TeamColors
+            "Division": row.Division
         }
 
         for row in rows
     ]
 
     return {"data": results}
+    

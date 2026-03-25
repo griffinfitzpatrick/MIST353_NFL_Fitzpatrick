@@ -16,3 +16,4 @@ def get_db_connection():
                         'Encrypt=no;TrustServerCertificate=yes;Connection Timeout=30;'
     
     return pyodbc.connect(connection_string)
+
