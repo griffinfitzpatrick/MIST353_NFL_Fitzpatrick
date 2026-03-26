@@ -1,3 +1,5 @@
+import get_db_connection
+print("Loaded from:", get_db_connection.__file__)
 
 from get_db_connection import get_db_connection
 import os
