@@ -12,15 +12,22 @@ def get_db_connection():
     username = os.getenv("DB_LOGIN")
     password = os.getenv("DB_PASSWORD")
 
+    print("Loaded server:", server)
+    print("Loaded database:", database)
+    print("Loaded username:", username)
+    print("Loaded password:", password)
+
+
     # Build connection string for ODBC Driver 18
     connection_string = (
-        f"DRIVER={{ODBC Driver 18 for SQL Server}};"
-        f"SERVER=tcp:{server};"
-        f"DATABASE={database};"
-        f"UID={username};"
-        f"PWD={password};"
-        f"Encrypt=yes;"
-        f"TrustServerCertificate=yes;"
+        "DRIVER={ODBC Driver 18 for SQL Server};"
+       f"SERVER=tcp:{server},1433;"
+       f"DATABASE={database};"
+       f"UID={username};"
+       f"PWD={password};"
+
+        "Encrypt=yes;"
+        "TrustServerCertificate=yes;"
     )
 
     print("Using connection string:", connection_string)

@@ -1,4 +1,4 @@
-from API.get_db_connection import get_db_connection
+from get_db_connection import get_db_connection
 
 def get_teams_in_same_conference_division_as_specified_team(team_id: str):
     conn = get_db_connection()

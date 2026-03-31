@@ -9,7 +9,7 @@
 
 
 
-USE MIST353_NFL_Fitzpatrick;
+--USE MIST353_NFL_Fitzpatrick;
 GO
 
 -- Drop tables if they already exist
@@ -42,7 +42,7 @@ CREATE TABLE Team
         CONSTRAINT FK_Team_ConferenceDivision FOREIGN KEY REFERENCES ConferenceDivision(ConferenceDivisionID)
 );
 GO
-
+/* 
 use master;
 
 CREATE LOGIN APLogin
@@ -58,7 +58,7 @@ FOR LOGIN NandaSurendraDemo
 
 GRANT EXECUTE TO NandaSurendraDemo;
 
-GRANT SELECT TO NandaSurendraDemo;
+GRANT SELECT TO NandaSurendraDemo; */
 
 
 
