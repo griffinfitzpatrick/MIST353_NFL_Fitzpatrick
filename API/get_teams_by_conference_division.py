@@ -1,18 +1,19 @@
 from get_db_connection import get_db_connection
 
-def get_teams_by_conference_division(conference: str = None, division: str = None):
+def get_teams_by_conference_division(
+        conference: str = None,
+        division: str = None
+    ):
+    # Validate input parameters
     conn = get_db_connection()
     cursor = conn.cursor()
-
-    # IMPORTANT: update this to the REAL stored procedure name
     cursor.execute("{call procGetTeamsByConferenceDivision(?, ?)}", (conference, division))
-
     rows = cursor.fetchall()
     conn.close()
 
+#Convert the rows to a list of dictionaries
     results = [
         {
-            "TeamID": row.TeamID,
             "TeamName": row.TeamName,
             "Conference": row.Conference,
             "Division": row.Division,

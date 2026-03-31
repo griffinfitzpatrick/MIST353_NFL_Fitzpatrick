@@ -1,19 +1,21 @@
 from get_db_connection import get_db_connection
 
-def get_teams_in_same_conference_division_as_specified_team(team_id: str):
+def get_teams_in_same_conference_division_as_specified_team(
+        team_name: str
+):
+    # with get_db_connection() as conn:
     conn = get_db_connection()
     cursor = conn.cursor()
-
-    cursor.execute("{call procGetTeamsInSameConferenceDivision(?)}", (team_id,))
+    cursor.execute("{call procGetTeamsInSameConferenceDivisionAsSpecifiedTeam(?)}", (team_name,))
     rows = cursor.fetchall()
     conn.close()
 
+    #covert pyodbc rows to list of dictionaries
     results = [
         {
-            "TeamID": row.TeamName,
+            "TeamName": row.TeamName,
             "Conference": row.Conference,
             "Division": row.Division,
-            "TeamColors": row.TeamColors
         }
         for row in rows
     ]
