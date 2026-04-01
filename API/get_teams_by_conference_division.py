@@ -11,7 +11,7 @@ def get_teams_by_conference_division(
     rows = cursor.fetchall()
     conn.close()
 
-#Convert the rows to a list of dictionaries
+    #Convert the rows to a list of dictionaries
     results = [
         {
             "TeamName": row.TeamName,
@@ -23,4 +23,3 @@ def get_teams_by_conference_division(
     ]
 
     return {"data": results}
-

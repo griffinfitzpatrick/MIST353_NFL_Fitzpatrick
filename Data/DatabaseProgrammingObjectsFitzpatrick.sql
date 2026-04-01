@@ -1,71 +1,51 @@
 
 USE MIST353_NFL_Fitzpatrick;
 GO
--- three quires one for confdiv, one for team, one for join
+-- 3 queries
+-- 1 each for ConferenceDivision and Team tables, and 1 join query
 
---sort by conference division id, then team name
-SELECT 
-    cd.ConferenceDivisionID,
-    cd.Conference,
-    cd.Division,
-    t.TeamName,
-    t.TeamCityState,
-    t.TeamColors
-FROM ConferenceDivision cd
-INNER JOIN Team t
-    ON cd.ConferenceDivisionID = t.ConferenceDivisionID
-ORDER BY cd.ConferenceDivisionID, t.TeamName;
+/*
+1. User searches for teams using Conference name (optional) and / or Division name (optional)
+To show: TeamName, ConferenceName, DivisionName
+*/
 
---sort teams alphabetically by team name, then by conference division id
-SELECT 
-    TeamID,
-    TeamName,
-    TeamCityState,
-    TeamColors,
-    ConferenceDivisionID
-FROM Team
-ORDER BY TeamName;
-
---sort by ID number, then by team name
-SELECT 
-    ConferenceDivisionID,
-    Conference,
-    Division
-FROM ConferenceDivision
-ORDER BY ConferenceDivisionID;
-
---join the two tables together and sort by conference division id, then team name
-SELECT 
-    cd.Conference,
-    cd.Division,
-    t.TeamName,
-    t.TeamCityState,
-    t.TeamColors
-FROM Team t
-INNER JOIN ConferenceDivision cd
-    ON t.ConferenceDivisionID = cd.ConferenceDivisionID
-ORDER BY cd.ConferenceDivisionID, t.TeamName;
+go
 
 
-SELECT TeamName, TeamColors, Conference, Division
-FROM Team t
-INNER JOIN ConferenceDivision cd
-    ON t.ConferenceDivisionID = cd.ConferenceDivisionID
-Where Conference = 'AFC' AND Division = 'North';
+create or alter procedure procGetTeamsByConferenceDivision
+(
+    @ConferenceName NVARCHAR(50) = null,
+    @DivisionName NVARCHAR(50) = null
+)
+AS
+begin
+    select TeamName, TeamColors, Conference, Division
+    from Team T inner join ConferenceDivision C
+        on T.ConferenceDivisionID = C.ConferenceDivisionID
+    where Conference = IsNull(@ConferenceName, Conference)
+        and Division = IsNull(@DivisionName, Division)
+end
+/*
+execute procGetTeamsByConferenceDivision
+    @ConferenceName = 'AFC',
+    @DivisionName = 'North';
+*/
 
 
-USE MIST353_NFL_Fitzpatrick;
-GO
+go
 
-select * from team
-declare @myteamname varchar(50) = 'Tennessee Titans';
-
-select TeamName, TeamColors, Conference, Division
-from Team Myteam inner join Team OtherTeams
-    on Myteam.ConferenceDivisionID = OtherTeams.ConferenceDivisionID
---inner join ConferenceDivision cd
-    --on t.ConferenceDivisionID = cd.ConferenceDivisionID
-where TeamName != @myteamname;
-
-
-
+create OR alter procedure procGetTeamsInSameConferenceDivisionAsSpecifiedTeam
+(
+    @TeamName NVARCHAR(50)
+)
+AS
+BEGIN
+    select OtherTeam.TeamName, CD.Conference, CD.Division
+    from Team MyTeam inner join Team OtherTeam
+        on MyTeam.ConferenceDivisionID = OtherTeam.ConferenceDivisionID
+        inner join ConferenceDivision CD
+        on MyTeam.ConferenceDivisionID = CD.ConferenceDivisionID
+    where MyTeam.TeamName = @TeamName and
+        OtherTeam.TeamName != @TeamName;
+END
+-- execute procGetTeamsInSameConferenceDivisionAsSpecifiedTeam @TeamName = 'Baltimore Ravens';

@@ -1,68 +1,38 @@
+if(OBJECT_ID('Team') is not null)
+    drop table Team;
+if(OBJECT_ID('ConferenceDivision') is not null)
+    drop table ConferenceDivision;
 
---use master;
---GO
+-- Create tables for first iteration
+go
 
-
--- Use the correct database
-
-
-
-
-
---USE MIST353_NFL_Fitzpatrick;
-GO
-
--- Drop tables if they already exist
-IF OBJECT_ID('Team', 'U') IS NOT NULL DROP TABLE Team;
-IF OBJECT_ID('ConferenceDivision', 'U') IS NOT NULL DROP TABLE ConferenceDivision;
-GO
-
--- Create ConferenceDivision table
-CREATE TABLE ConferenceDivision
-(
-    ConferenceDivisionID INT IDENTITY(1001,1)
-        CONSTRAINT PK_ConferenceDivision PRIMARY KEY,
+create TABLE ConferenceDivision ( 
+    ConferenceDivisionID INT identity(1,1) 
+        constraint PK_ConferenceDivision PRIMARY KEY,
     Conference NVARCHAR(50) NOT NULL
-        CONSTRAINT CK_Conference CHECK (Conference IN ('AFC', 'NFC')),
+        constraint CK_ConferenceNames CHECK (Conference IN ('AFC', 'NFC')),
     Division NVARCHAR(50) NOT NULL
-        CONSTRAINT CK_Division CHECK (Division IN ('North', 'South', 'East', 'West')),
-    CONSTRAINT UQ_ConferenceDivision UNIQUE (Conference, Division)
+        constraint CK_DivisionNames CHECK (Division IN ('East', 'North', 'South', 'West')),
+    constraint UK_ConferenceDivision UNIQUE (Conference, Division)
 );
-GO
 
--- Create Team table
-CREATE TABLE Team
-(
-    TeamID INT IDENTITY(1,1)
-        CONSTRAINT PK_Team PRIMARY KEY,
-    TeamName VARCHAR(50) NOT NULL,
-    TeamCityState VARCHAR(50) NOT NULL,
-    TeamColors VARCHAR(100) NOT NULL,  -- increased size to fix truncation
+/*
+alter table ConferenceDivision
+    NOCHECK CONSTRAINT CK_ConferenceNames;
+
+alter table ConferenceDivision
+    CHECK CONSTRAINT CK_ConferenceNames;
+*/
+
+go
+
+create TABLE Team ( 
+    TeamID INT identity(1,1) 
+        constraint PK_Team PRIMARY KEY,
+    TeamName NVARCHAR(50) NOT NULL,
+    TeamCityState NVARCHAR(50) NOT NULL,
+    TeamColors NVARCHAR(100) NOT NULL,
     ConferenceDivisionID INT NOT NULL
-        CONSTRAINT FK_Team_ConferenceDivision FOREIGN KEY REFERENCES ConferenceDivision(ConferenceDivisionID)
+        constraint FK_Team_ConferenceDivision FOREIGN KEY REFERENCES ConferenceDivision(ConferenceDivisionID)
 );
-GO
-/* 
-use master;
-
-CREATE LOGIN APLogin
-WITH PASSWORD ='MI$T353Instructor';
-
-use MIST353_NFL_Fitzpatrick;
-
-CREATE USER APLogin
-FOR LOGIN APLogin;
-
-CREATE USER NandaSurendraDemo
-FOR LOGIN NandaSurendraDemo
-
-GRANT EXECUTE TO NandaSurendraDemo;
-
-GRANT SELECT TO NandaSurendraDemo; */
-
-
-
-
-
-
 
