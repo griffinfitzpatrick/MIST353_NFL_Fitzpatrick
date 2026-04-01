@@ -2,7 +2,7 @@ import streamlit as st
 from fetch_data import fetch_data
 
 def get_teams_in_same_conference_division_as_specified_team_ui():
-    
+
     st.header("Get Teams in Same Conference and Division as Specified Team")
 
     team_name = st.text_input("Enter team name:")
@@ -12,7 +12,7 @@ def get_teams_in_same_conference_division_as_specified_team_ui():
             st.warning("Please enter a team name.")
         else:
             input_params = {}
-            input_params {"team_name"} = team_name.strip()
+            input_params["team_name"] = team_name.strip()
             #define fetch_data function and call it with the input parameters
             df = fetch_data("get_teams_in_same_conference_division_as_specified_team/", input_params)
 
