@@ -61,4 +61,11 @@ VALUES
 GO
 --select * from Team order by TeamID;
 
+GO
 
+insert into AppUser (FirstName, LastName, Email, Phone, PasswordHash, UserRole)
+VALUES
+('Tom', 'Brady', 'tom.brady@example.com', HASHBYTES('SHA2_256', 'password'), 'NFLFan'),
+('Drew', 'Brees', 'drew.brees@example.com', HASHBYTES('SHA2_256', 'password'), 'NFLFan'),
+('Aaron', 'Rodgers', 'aaron.rodgers@example.com', HASHBYTES('SHA2_256', 'password'), 'NFLFan'),
+('Patrick', 'Mahomes', 'patrick.mahomes@example.com', HASHBYTES('SHA2_256', 'password'), 'NFLFan'); 

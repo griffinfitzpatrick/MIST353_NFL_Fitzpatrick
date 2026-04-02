@@ -46,3 +46,20 @@ BEGIN
         OtherTeam.TeamName != @TeamName;
 END
 -- execute procGetTeamsInSameConferenceDivisionAsSpecifiedTeam @TeamName = 'Baltimore Ravens';
+
+GO
+
+create or alter procedure procValidateUser
+(
+    @Email NVARCHAR(100),
+    @Password NVARCHAR(50)
+)
+AS
+BEGIN
+    select AppUserID, FirstName + ' ' + LastName as FullName, UserRole
+    from AppUser
+    where Email = @Email and
+    PasswordHash =Convert(varbinary(200), @PasswordHash);
+END
+-- execute procValidateUser @Email = 'tom.brady@example.com', @Password = 0x01;
+--select * from AppUser;

@@ -1,7 +1,16 @@
+if(OBJECT_ID('FanTeam') is not null)
+    drop table FanTeam;
+if(OBJECT_ID('NFLFan') is not null)
+    drop table NFLFan;
+if(OBJECT_ID('NFLAdmin') is not null)
+    drop table NFLAdmin;
 if(OBJECT_ID('Team') is not null)
     drop table Team;
 if(OBJECT_ID('ConferenceDivision') is not null)
     drop table ConferenceDivision;
+if(OBJECT_ID('AppUser') is not null)
+    drop table AppUser;
+
 
 -- Create tables for first iteration
 go
@@ -36,3 +45,39 @@ create TABLE Team (
         constraint FK_Team_ConferenceDivision FOREIGN KEY REFERENCES ConferenceDivision(ConferenceDivisionID)
 );
 
+GO
+--Create tables fo second iteration
+create table AppUser(
+    AppUserID INT identity(1,1) 
+        constraint PK_AppUser PRIMARY KEY,
+    FirstName NVARCHAR(50) NOT NULL,
+    LastName NVARCHAR(50) NOT NULL,   
+    Email NVARCHAR(100) NOT NULL,
+        CONSTRAINT UK_AppUserEmail UNIQUE,
+    PasswordHash VARBINARY(200) NOT NULL,
+    PhoneNumber NVARCHAR(20) NULL,
+    UserRole NVARCHAR(20) NOT NULL
+        constraint CK_AppUserRole CHECK (UserRole IN (N'NFLAdmin', N'NFLFan'))
+);
+
+create table NFLFan(
+    NFLFanID INT identity(1,1) 
+        constraint PK_NFLFan PRIMARY KEY,
+        constraint FK_NFLFan_AppUser FOREIGN KEY REFERENCES AppUser(AppUserID),
+);
+
+CREATE TABLE NFLAdmin(
+    NFLAdminID INT identity(1,1) 
+        constraint PK_NFLAdmin PRIMARY KEY,
+        constraint FK_NFLAdmin_AppUser FOREIGN KEY REFERENCES AppUser(AppUserID),
+);
+
+create table FanTeam(
+    FanTeamID INT identity(1,1) 
+        constraint PK_FanTeam PRIMARY KEY,
+    NFLFanID INT NOT NULL
+        constraint FK_FanTeam_NFLFan FOREIGN KEY REFERENCES NFLFan(NFLFanID),
+    TeamID INT NOT NULL
+        constraint FK_FanTeam_Team FOREIGN KEY REFERENCES Team(TeamID)
+    CONSTRAINT UK_FanTeam Unique (NFLFanID, TeamID)
+);
