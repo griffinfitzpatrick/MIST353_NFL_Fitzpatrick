@@ -1,6 +1,3 @@
-
-USE MIST353_NFL_Fitzpatrick;
-GO
 -- 3 queries
 -- 1 each for ConferenceDivision and Team tables, and 1 join query
 
