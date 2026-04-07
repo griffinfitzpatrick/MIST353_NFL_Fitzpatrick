@@ -56,7 +56,7 @@ BEGIN
     select AppUserID, FirstName + ' ' + LastName as FullName, UserRole
     from AppUser
     where Email = @Email and
-    PasswordHash =Convert(varbinary(200), @PasswordHash, 1);
+    PasswordHash =Convert(varbinary(200), @PasswordHash);
 END
 -- execute procValidateUser @Email = 'tom.brady@example.com', @Password = 0x01;
 --select * from AppUser;
