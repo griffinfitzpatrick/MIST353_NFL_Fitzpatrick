@@ -11,4 +11,6 @@ def get_db_connection():
     password = os.getenv("DB_PASSWORD")
     #ODBC Driver 18 for SQL Server can Only be used in syrchonous mode
     connection_string = f"DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={server};DATABASE={database};UID={username};PWD={password};Encrypt=yes;TrustServerCertificate=yes;Connection Timeout=30;"
+    connection_string += "Encrypt=yes;TrustServerCertificate=yes;Connection Timeout=30;"
+
     return pyodbc.connect(connection_string)
