@@ -46,7 +46,7 @@ create TABLE Team (
 );
 
 GO
---Create tables fo second iteration
+--Create tables for second iteration
 create table AppUser(
     AppUserID INT identity(1,1) 
         constraint PK_AppUser PRIMARY KEY,
@@ -60,17 +60,23 @@ create table AppUser(
         constraint CK_AppUserRole CHECK (UserRole IN (N'NFLAdmin', N'NFLFan'))
 );
 
+GO
+
 create table NFLFan(
     NFLFanID INT identity(1,1) 
         constraint PK_NFLFan PRIMARY KEY,
         constraint FK_NFLFan_AppUser FOREIGN KEY REFERENCES AppUser(AppUserID),
 );
 
+GO
+
 CREATE TABLE NFLAdmin(
-    NFLAdminID INT identity(1,1) 
+    NFLAdminID INT
         constraint PK_NFLAdmin PRIMARY KEY,
         constraint FK_NFLAdmin_AppUser FOREIGN KEY REFERENCES AppUser(AppUserID),
 );
+
+GO
 
 create table FanTeam(
     FanTeamID INT identity(1,1) 
@@ -79,5 +85,6 @@ create table FanTeam(
         constraint FK_FanTeam_NFLFan FOREIGN KEY REFERENCES NFLFan(NFLFanID),
     TeamID INT NOT NULL
         constraint FK_FanTeam_Team FOREIGN KEY REFERENCES Team(TeamID)
-    CONSTRAINT UK_FanTeam Unique (NFLFanID, TeamID)
+    CONSTRAINT UK_FanTeam Unique (NFLFanID, TeamID),
+    PrimaryTeam BIT NOT NULL
 );
