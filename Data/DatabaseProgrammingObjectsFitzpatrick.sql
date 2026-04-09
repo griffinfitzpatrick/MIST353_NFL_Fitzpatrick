@@ -56,7 +56,30 @@ BEGIN
     select AppUserID, FirstName + ' ' + LastName as FullName, UserRole
     from AppUser
     where Email = @Email and
-    PasswordHash =Convert(varbinary(200), @PasswordHash);
+    PasswordHash =Convert(varbinary(200), @PasswordHash, 1);
 END
 -- execute procValidateUser @Email = 'tom.brady@example.com', @Password = 0x01;
 --select * from AppUser;
+
+GO
+
+CREATE OR ALTER PROCEDURE procGetTeamsForSpecifiedFan
+(
+    @NFLFanID INT
+)
+AS
+BEGIN
+    SELECT 
+        T.TeamName, CD.Conference, CD.Division
+    FROM NFLFan F
+        INNER JOIN FanTeam FT
+            ON F.NFLFanID = FT.NFLFanID
+        INNER JOIN Team T
+            ON FT.TeamID = T.TeamID
+        INNER JOIN ConferenceDivision CD
+            ON T.ConferenceDivisionID = CD.ConferenceDivisionID
+    WHERE F.NFLFanID = @NFLFanID;
+END;
+
+--execute procGetTeamsForSpecififedFan @NFLFanID = 1;
+--execute procGetTeamsForSpecififedFan @NFLFanID = 2;
