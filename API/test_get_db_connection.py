@@ -1,4 +1,5 @@
 from get_db_connection import get_db_connection
+
 import os
 import pyodbc
 from dotenv import load_dotenv
@@ -6,10 +7,15 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def test_get_db_connection():
+
   # Test 1: Check env vars are loaded
+
   required_vars = ["DB_SERVER", "DB_NAME", "DB_LOGIN", "DB_PASSWORD"]
+
   missing = [v for v in required_vars if not os.getenv(v)]
+
   assert not missing, f"Missing env vars: {missing}"
+
   print("✅ Env vars loaded")
 
   # Test 2: Connection returns a pyodbc.Connection object

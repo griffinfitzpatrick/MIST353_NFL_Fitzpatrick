@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from API.get_teams_by_fan_id import get_teams_by_fan_id
 from get_teams_by_conference_division import get_teams_by_conference_division
 from get_teams_in_same_conference_division_as_specified_team import get_teams_in_same_conference_division_as_specified_team
 from validate_user import validate_user
@@ -19,3 +20,7 @@ def get_teams_in_same_conference_division_as_specified_team_api(team_name: str):
 @app.get("/validate_user/")
 def validate_user_api(email: str, password_hash: str):
     return validate_user(email=email, password_hash=password_hash)
+
+@app.get("/get_teams_by_fan_id/")
+def get_teams_by_fan_id_api(fan_id: int):
+    return get_teams_by_fan_id(fan_id=fan_id)

@@ -29,5 +29,6 @@ elif api_endpoint == "Validate User":
 elif page == "Get Teams for Specified Fan":
     get_teams_for_specified_fan_ui()
 
-
+elif api_endpoint == "Get Teams by Fan ID":
+    get_teams_by_fan_id_ui()
   
