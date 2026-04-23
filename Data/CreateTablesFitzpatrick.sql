@@ -1,3 +1,12 @@
+if(OBJECT_ID('AdminChangesTracker') is not null)
+    drop TABLE AdminChangesTracker
+if(OBJECT_ID('TeamStadium') is not null)
+    drop TABLE TeamStadium
+if(OBJECT_ID('Game') is not null)
+    drop TABLE Game
+if(OBJECT_ID('Stadium') is not null)
+    drop TABLE Stadium;
+
 if(OBJECT_ID('FanTeam') is not null)
     drop table FanTeam;
 if(OBJECT_ID('NFLFan') is not null)
@@ -11,8 +20,6 @@ if(OBJECT_ID('ConferenceDivision') is not null)
 if(OBJECT_ID('AppUser') is not null)
     drop table AppUser;
 
-
--- Create tables for first iteration
 go
 
 create TABLE ConferenceDivision ( 
@@ -24,14 +31,6 @@ create TABLE ConferenceDivision (
         constraint CK_DivisionNames CHECK (Division IN ('East', 'North', 'South', 'West')),
     constraint UK_ConferenceDivision UNIQUE (Conference, Division)
 );
-
-/*
-alter table ConferenceDivision
-    NOCHECK CONSTRAINT CK_ConferenceNames;
-
-alter table ConferenceDivision
-    CHECK CONSTRAINT CK_ConferenceNames;
-*/
 
 go
 
@@ -46,7 +45,7 @@ create TABLE Team (
 );
 
 GO
---Create tables for second iteration
+
 create table AppUser(
     AppUserID INT identity(1,1) 
         constraint PK_AppUser PRIMARY KEY,
@@ -88,3 +87,11 @@ create table FanTeam(
     CONSTRAINT UK_FanTeam Unique (NFLFanID, TeamID),
     PrimaryTeam BIT NOT NULL
 );
+
+GO
+
+Create table Stadium(
+    StadiumID int identity (1,1)
+        CONSTRAINT PK_Stadium 
+
+)
