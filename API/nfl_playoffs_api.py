@@ -6,7 +6,6 @@ from validate_user import validate_user
 from get_teams_for_specified_fan import router as fan_teams_router
 
 app.include_router(fan_teams_router)
-
 app = FastAPI()
 
 @app.get("/get_teams_by_conference_division/")
@@ -24,3 +23,23 @@ def validate_user_api(email: str, password_hash: str):
 @app.get("/get_teams_by_fan_id/")
 def get_teams_by_fan_id_api(fan_id: int):
     return get_teams_by_fan_id(fan_id=fan_id)
+
+@app.post("/schedule_game/")
+def schedule_game_api(
+        home_team_id: int,
+        away_team_id: int,
+        game_round: int,
+        game_date: str,
+        game_time: str,
+        stadium_id: int,
+        nfl_admin_id: int
+    ):
+    return schedule_game(
+        home_team_id=home_team_id,
+        away_team_id=away_team_id,
+        game_round=game_round,
+        game_date=game_date,
+        game_time=game_time,
+        stadium_id=stadium_id,
+        nfl_admin_id=nfl_admin_id
+    )

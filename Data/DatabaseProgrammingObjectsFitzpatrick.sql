@@ -164,3 +164,5 @@ BEGIN
     insert into AdminChangesTracker (NFLAdminID, GameID, ChangeType, ChangeDescription)
     values (@NFLAdminID, @GameID, @ChangeType, @ChangeDescription);
 END
+
+    
