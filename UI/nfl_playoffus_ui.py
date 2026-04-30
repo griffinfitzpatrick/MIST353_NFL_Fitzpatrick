@@ -27,12 +27,17 @@ elif api_endpoint == "Get Teams in Same Conference and Division as Specified Tea
 elif api_endpoint == "Validate User":
    validate_user_ui()
 
-elif page == "Get Teams for Specified Fan":
+elif api_endpoint == "Get Teams for Specified Fan":
     get_teams_for_specified_fan_ui()
 
-elif api_endpoint == "Get Teams by Fan ID":
-    get_teams_by_fan_id_ui()
-
 elif api_endpoint == "Schedule a Game":
-    schedule_game_ui()
+    if "app_user_id" not in st.session_state:
+        st.warning("Please validate your user account to access this functionality.")
+   elif st.session_state.app_user_id is None:
+        st.warning("Please validate your user account to access this functionality.")
+   else:
+         schedule_game_ui()
+         
+
+
   

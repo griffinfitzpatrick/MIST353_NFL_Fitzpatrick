@@ -43,3 +43,4 @@ def schedule_game_api(
         stadium_id=stadium_id,
         nfl_admin_id=nfl_admin_id
     )
+
