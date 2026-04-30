@@ -11,11 +11,8 @@ def schedule_game_ui():
     stadium_id = int(input("Enter Stadium ID: "))
     nfl_admin_id = int(input("Enter NFL Admin ID: "))
 
-    #Convert date and time to correct format
-    from datetime import datetime
-    game_date = datetime.strptime(game_date, "%Y-%m-%d").date()
-    game_time = datetime.strptime(game_time, "%H:%M:%S").time()
- 
+    #Convert date and time strings
+
     if st.button("Schedule Game"):
         #Call the API to schedule the game
         result = fetch_data(
@@ -29,6 +26,6 @@ def schedule_game_ui():
                 "stadium_id": stadium_id,
                 "nfl_admin_id": nfl_admin_id
             },
-         method="POST"
-
+            method="POST"
     )
+    st.write(result)

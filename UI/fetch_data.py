@@ -22,6 +22,7 @@ def fetch_data(endpoint: str, input_params: dict, method: str = "GET"):
 def post_data(endpoint: str, input_params: dict, method: str = "POST")-> dict:
     if method == "POST":
         response = requests.post(f"{FASTAPI_URL}/{endpoint}", params=input_params)
+        
         if response.status_code == 200:
             payload = response.json()
         else:
