@@ -17,7 +17,7 @@ def get_teams_in_same_conference_division_as_specified_team_ui():
             df = fetch_data("get_teams_in_same_conference_division_as_specified_team/", input_params)
 
             if df is not None and not df.empty:
-                subheader = f"Teams in the same conference and division as {team_name}:"
+                subheader = f"Teams in the same the conference and division as {team_name}:"
                 st.dataframe(df, use_container_width=True, hide_index=True)
             else:
                 st.info(f"No teams found in the same conference and division as {team_name}.")
